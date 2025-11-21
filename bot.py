@@ -8,13 +8,14 @@ import os
 
 # инициализация объектов
 
-TOKEN = os.getenv('TOKEN')
 # bot = Bot(token='ТУТ БЫЛ ТОКЕН')
+TOKEN = os.getenv('TOKEN')
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 logging.basicConfig(level=logging.INFO)
 
 # Словарь букв по приказу МИД
+
 trans = {'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E', 
     'Ё': 'E', 'Ж': 'ZH', 'З': 'Z', 'И': 'I', 'Й': 'I', 'К': 'K', 'Л': 'L',
     'М': 'M', 'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T',
@@ -22,6 +23,7 @@ trans = {'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E',
     'Щ': 'SHCH', 'Ъ': 'IE', 'Ы': 'Y', 'Ь': '', 'Э': 'E', 'Ю': 'IU', 'Я': 'IA'}
 
 #Функция перевода имени, заменяем каждую букву по словарю
+
 def transliterate_name(name):
     transliterated = ''
     for letter in name:
@@ -50,10 +52,9 @@ async def send_echo(message: Message):
     user_id = message.from_user.id
     text = message.text
     logging.info(f'{user_name} {user_id}: {text}')
-    await message.answer(text=text)
+    await message.answer(transliterate_name(text.upper()))
 
 # Запуск процесса пуллинга
 
 if __name__ == '__main__':
     dp.run_polling(bot)
-
