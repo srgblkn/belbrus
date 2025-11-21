@@ -1,6 +1,6 @@
 #импорт библиотек
 import logging
-
+from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message
 from aiogram.filters.command import Command
@@ -8,8 +8,8 @@ import os
 
 # инициализация объектов
 
-# bot = Bot(token='ТУТ БЫЛ ТОКЕН')
-TOKEN = os.getenv('TOKEN')
+load_dotenv() 
+TOKEN = os.getenv('BOT_TOKEN')
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 logging.basicConfig(level=logging.INFO)
